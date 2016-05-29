@@ -1,0 +1,53 @@
+{
+  "name": "mount-on",
+  "version": "0.0.0",
+  "description": "Mount directory on remote host.",
+  "main": "lib/mount-on.js",
+  "bin": "./bin/mount-on.js",
+  "scripts": {
+    "cover": "istanbul cover jasmine",
+    "integration": "NODE_ENV=integration jasmine",
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agirorn/mount-on.git"
+  },
+  "keywords": [
+    "mount",
+    "ssh",
+    "sshfs",
+    "remote",
+    "local"
+  ],
+  "author": "Ægir Örn Símonarson <agirorn@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agirorn/mount-on/issues"
+  },
+  "homepage": "https://github.com/agirorn/mount-on#readme",
+  "dependencies": {
+    "curry": "^1.2.0",
+    "fs-extra": "^0.30.0",
+    "merge": "^1.2.0",
+    "nopt": "^3.0.6",
+    "read": "^1.0.7",
+    "ssh2": "^0.5.0",
+    "ssh2-connect": "^1.0.1",
+    "ssh2-exec": "^0.3.3",
+    "touch": "^1.0.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.0",
+    "grunt": "^1.0.1",
+    "grunt-clear": "^0.2.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-eslint": "^18.1.0",
+    "grunt-jasmine-nodejs": "^1.5.3",
+    "istanbul": "^0.4.3",
+    "jasmine": "^2.4.1",
+    "load-grunt-tasks": "^3.5.0"
+  }
+}
