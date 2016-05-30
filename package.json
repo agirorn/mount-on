@@ -28,6 +28,7 @@
   "homepage": "https://github.com/agirorn/mount-on#readme",
   "dependencies": {
     "curry": "^1.2.0",
+    "debug": "^2.2.0",
     "fs-extra": "^0.30.0",
     "merge": "^1.2.0",
     "nopt": "^3.0.6",
@@ -36,7 +37,8 @@
     "ssh2-connect": "^1.0.1",
     "ssh2-exec": "^0.3.3",
     "touch": "^1.0.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "untildify": "^3.0.2"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^9.0.1",
