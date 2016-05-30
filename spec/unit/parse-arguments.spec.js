@@ -1,7 +1,22 @@
 var parseArguments = require('../../lib/parse-arguments');
 
 describe('parse-arguments', function () {
-  it('parses all arguments', function () {
+  var options = {
+    local: {
+      host: '192.168.33.20',
+      folder: '/vagrant/.tmp/local-folder',
+      user: 'vagrant',
+      password: 'vagrant'
+    },
+    remote: {
+      host: '192.168.33.10',
+      folder: '/vagrant/.tmp/remote-folder',
+      user: 'vagrant',
+      password: 'vagrant'
+    }
+  };
+
+  describe('parses all arguments', function () {
     var args = [
       'node',
       'bin/mount-on',
@@ -15,20 +30,12 @@ describe('parse-arguments', function () {
       '--remote-password=vagrant'
     ];
 
-    expect(parseArguments(args)).toEqual({ local:
-       { host: '192.168.33.20',
-         folder: '/vagrant/.tmp/local-folder',
-         user: 'vagrant',
-         password: 'vagrant' },
-      remote:
-       { host: '192.168.33.10',
-         folder: '/vagrant/.tmp/remote-folder',
-         user: 'vagrant',
-         password: 'vagrant' } }
-    );
+    it('has all options', function () {
+      expect(parseArguments(args)).toEqual(options);
+    });
   });
 
-  it('parses all shorthands', function () {
+  describe('parses all shorthands', function () {
     var args = [
       'node',
       'bin/mount-on',
@@ -42,16 +49,132 @@ describe('parse-arguments', function () {
       '-rp=vagrant'
     ];
 
-    expect(parseArguments(args)).toEqual({ local:
-       { host: '192.168.33.20',
-         folder: '/vagrant/.tmp/local-folder',
-         user: 'vagrant',
-         password: 'vagrant' },
-      remote:
-       { host: '192.168.33.10',
-         folder: '/vagrant/.tmp/remote-folder',
-         user: 'vagrant',
-         password: 'vagrant' } }
-    );
+    it('has all options', function () {
+      expect(parseArguments(args)).toEqual(options);
+    });
+  });
+
+  describe('parsing naked host', function () {
+    var args = [
+      'node',
+      'bin/mount-on',
+      '192.168.33.10',
+      '--local-host=192.168.33.20',
+      '--local-folder=/vagrant/.tmp/local-folder',
+      '--local-user=vagrant',
+      '--local-password=vagrant',
+      '--remote-folder=/vagrant/.tmp/remote-folder',
+      '--remote-user=vagrant',
+      '--remote-password=vagrant'
+    ];
+
+    it('has host', function () {
+      expect(parseArguments(args).remote.host).toEqual('192.168.33.10');
+    });
+
+    it('has all options', function () {
+      expect(parseArguments(args)).toEqual(options);
+    });
+  });
+
+  describe('parsing naked user and host', function () {
+    var args = [
+      'node',
+      'bin/mount-on',
+      'vagrant@192.168.33.10'
+    ];
+
+    it('has user', function () {
+      expect(parseArguments(args).remote.user).toEqual('vagrant');
+    });
+
+    it('has host', function () {
+      expect(parseArguments(args).remote.host).toEqual('192.168.33.10');
+    });
+  });
+
+  describe('parsing naked user, host and absolute path', function () {
+    var args = [
+      'node',
+      'bin/mount-on',
+      'vagrant@192.168.33.10:/tmp/mount-point'
+    ];
+
+    it('has user', function () {
+      expect(parseArguments(args).remote.user).toEqual('vagrant');
+    });
+
+    it('has host', function () {
+      expect(parseArguments(args).remote.host).toEqual('192.168.33.10');
+    });
+
+    it('has folder', function () {
+      expect(parseArguments(args).remote.folder).toEqual('/tmp/mount-point');
+    });
+  });
+
+  describe('parsing naked user, host and home path', function () {
+    var args = [
+      'node',
+      'bin/mount-on',
+      'vagrant@192.168.33.10:~/mount-point'
+    ];
+
+    it('has user', function () {
+      expect(parseArguments(args).remote.user).toEqual('vagrant');
+    });
+
+    it('has host', function () {
+      expect(parseArguments(args).remote.host).toEqual('192.168.33.10');
+    });
+
+    it('has folder', function () {
+      expect(parseArguments(args).remote.folder).toEqual('~/mount-point');
+    });
+  });
+
+  describe('parsing naked user, host and path', function () {
+    var args = [
+      'node',
+      'bin/mount-on',
+      'vagrant@192.168.33.10:mount-point'
+    ];
+
+    it('has user', function () {
+      expect(parseArguments(args).remote.user).toEqual('vagrant');
+    });
+
+    it('has host', function () {
+      expect(parseArguments(args).remote.host).toEqual('192.168.33.10');
+    });
+
+    it('has folder', function () {
+      expect(parseArguments(args).remote.folder).toEqual('~/mount-point');
+    });
+  });
+
+  describe('parsing naked user, host and home path', function () {
+    var args = [
+      'node',
+      'bin/mount-on',
+      'vagrant@192.168.33.10:/mount-point',
+      '~/local-dir'
+    ];
+
+    it('has local folder', function () {
+      expect(parseArguments(args).local.folder).toEqual('~/local-dir');
+    });
+  });
+
+  describe('set missing local-folder', function () {
+    var args = [
+      'node',
+      'bin/mount-on',
+      'vagrant@192.168.33.10:/mount-point'
+    ];
+
+    it('has local folder', function () {
+      expect(parseArguments(args).local.folder).toEqual(process.cwd());
+    });
   });
 });
