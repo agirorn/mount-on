@@ -14,7 +14,8 @@ module.exports = function gruntConfig(grunt) {
       ],
       tasks: [
         'clear', 'test',
-        'clear', 'eslint'
+        'clear', 'eslint',
+        'clear', 'integration'
       ]
     },
 
@@ -50,10 +51,15 @@ module.exports = function gruntConfig(grunt) {
           'spec/helpers/**'
         ]
       }
+    },
+
+    exec: {
+      integration: 'npm run integration'
     }
   });
 
   grunt.registerTask('test', ['jasmine_nodejs']);
+  grunt.registerTask('integration', ['exec:integration']);
   grunt.registerTask('dev', ['watch']);
   grunt.registerTask('default', ['test', 'eslint']);
 };

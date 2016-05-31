@@ -1,14 +1,10 @@
-if (process.env.NODE_ENV === 'integration') {
-  /* eslint-disable vars-on-top */
-  /* eslint-disable global-require */
-  var Vagrant = require('../helpers/vagrant');
-  var vagrant = new Vagrant();
-  var fs = require('fs-extra');
-  var touch = require('touch');
-  var exec = require('child_process').exec;
-  /* eslint-enable vars-on-top */
-  /* eslint-enable global-require */
+var fs = require('fs-extra');
+var touch = require('touch');
+var exec = require('child_process').exec;
+var Vagrant = require('../helpers/vagrant');
+var vagrant = new Vagrant();
 
+if (process.env.NODE_ENV === 'integration') {
   describe('mount-on', function () {
     var timeout = 1000000;
     var local = new Vagrant('local');
@@ -44,7 +40,6 @@ if (process.env.NODE_ENV === 'integration') {
       }, timeout);
 
       it('works', function () {
-        // expect(fs.existsSync('.tmp/remote-folder/new-file')).toBe(true);
         exec("vagrant ssh remote -c 'file /vagrant/.tmp/remote-folder/new-file'", function (err, stdout, stderr) {
           expect(err).toBe(null);
         });
