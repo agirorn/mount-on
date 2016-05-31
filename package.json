@@ -1,6 +1,6 @@
 {
   "name": "mount-on",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Mount directory on remote host.",
   "main": "lib/mount-on.js",
   "bin": "./bin/mount-on.js",
