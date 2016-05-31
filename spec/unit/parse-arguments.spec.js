@@ -57,7 +57,7 @@ describe('parse-arguments', function () {
     });
   });
 
-  describe('parsing naked host', function () {
+  describe('parsing host', function () {
     var args = [
       'node',
       'bin/mount-on',
@@ -81,7 +81,7 @@ describe('parse-arguments', function () {
     });
   });
 
-  describe('parsing naked user and host', function () {
+  describe('parsing user and host', function () {
     var args = [
       'node',
       'bin/mount-on',
@@ -97,7 +97,7 @@ describe('parse-arguments', function () {
     });
   });
 
-  describe('parsing naked user, host and absolute path', function () {
+  describe('parsing user, host and absolute path', function () {
     var args = [
       'node',
       'bin/mount-on',
@@ -117,7 +117,7 @@ describe('parse-arguments', function () {
     });
   });
 
-  describe('parsing naked user, host and home path', function () {
+  describe('parsing user, host and home path', function () {
     var args = [
       'node',
       'bin/mount-on',
@@ -137,7 +137,7 @@ describe('parse-arguments', function () {
     });
   });
 
-  describe('parsing naked user, host and path', function () {
+  describe('parsing user, host and path', function () {
     var args = [
       'node',
       'bin/mount-on',
@@ -157,7 +157,7 @@ describe('parse-arguments', function () {
     });
   });
 
-  describe('parsing naked user, host and home path', function () {
+  describe('parsing user, host and home path', function () {
     var args = [
       'node',
       'bin/mount-on',
