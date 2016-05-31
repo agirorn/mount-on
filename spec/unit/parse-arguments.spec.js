@@ -13,7 +13,8 @@ describe('parse-arguments', function () {
       folder: '/vagrant/.tmp/remote-folder',
       user: 'vagrant',
       password: 'vagrant'
-    }
+    },
+    autoconnect: true
   };
 
   describe('parses all arguments', function () {
@@ -27,7 +28,8 @@ describe('parse-arguments', function () {
       '--remote-host=192.168.33.10',
       '--remote-folder=/vagrant/.tmp/remote-folder',
       '--remote-user=vagrant',
-      '--remote-password=vagrant'
+      '--remote-password=vagrant',
+      '--autoconnect'
     ];
 
     it('has all options', function () {
@@ -46,7 +48,8 @@ describe('parse-arguments', function () {
       '-rh=192.168.33.10',
       '-rf=/vagrant/.tmp/remote-folder',
       '-ru=vagrant',
-      '-rp=vagrant'
+      '-rp=vagrant',
+      '-a'
     ];
 
     it('has all options', function () {
@@ -65,7 +68,8 @@ describe('parse-arguments', function () {
       '--local-password=vagrant',
       '--remote-folder=/vagrant/.tmp/remote-folder',
       '--remote-user=vagrant',
-      '--remote-password=vagrant'
+      '--remote-password=vagrant',
+      '--autoconnect'
     ];
 
     it('has host', function () {

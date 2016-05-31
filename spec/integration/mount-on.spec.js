@@ -5,17 +5,18 @@ if (process.env.NODE_ENV === 'integration') {
   var vagrant = new Vagrant();
   var fs = require('fs-extra');
   var touch = require('touch');
+  var exec = require('child_process').exec;
   /* eslint-enable vars-on-top */
   /* eslint-enable global-require */
 
   describe('mount-on', function () {
-    var timeout = 10000;
+    var timeout = 1000000;
     var local = new Vagrant('local');
 
     beforeAll(function (done) {
       fs.mkdirsSync('.tmp/local-folder');
       fs.mkdirsSync('.tmp/remote-folder');
-      touch.sync('.tmp/remote-folder/new-file');
+      touch.sync('.tmp/local-folder/new-file');
       vagrant.up(done);
     }, timeout);
 
@@ -25,12 +26,10 @@ if (process.env.NODE_ENV === 'integration') {
     });
 
     describe('mount', function () {
-      afterEach(function (done) {
-        local.sshCommand('rm -Rf folder', done);
-      }, timeout);
-
       beforeEach(function (done) {
         local.sshCommand([
+          'export NVM_DIR="/home/vagrant/.nvm";',
+          '. "$NVM_DIR/nvm.sh";', // # This loads nvm
           '/vagrant/bin/mount-on.js',
           '--local-host=192.168.33.20',
           '--local-folder=/vagrant/.tmp/local-folder',
@@ -39,12 +38,16 @@ if (process.env.NODE_ENV === 'integration') {
           '--remote-host=192.168.33.10',
           '--remote-folder=/vagrant/.tmp/remote-folder',
           '--remote-user=vagrant',
-          '--remote-password=vagrant'
+          '--remote-password=vagrant',
+          '--autoconnect'
         ].join(' '), done);
       }, timeout);
 
       it('works', function () {
-        expect(fs.existsSync('.tmp/remote-folder/new-file')).toBe(true);
+        // expect(fs.existsSync('.tmp/remote-folder/new-file')).toBe(true);
+        exec("vagrant ssh remote -c 'file /vagrant/.tmp/remote-folder/new-file'", function (err, stdout, stderr) {
+          expect(err).toBe(null);
+        });
       });
     });
   });
