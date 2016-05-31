@@ -181,4 +181,28 @@ describe('parse-arguments', function () {
       expect(parseArguments(args).local.folder).toEqual(process.cwd());
     });
   });
+
+  describe('set missing local-user', function () {
+    var args = [
+      'node',
+      'bin/mount-on',
+      'vagrant@192.168.33.10:/mount-point'
+    ];
+
+    it('has local folder', function () {
+      expect(parseArguments(args).local.user).toEqual(process.env.USER);
+    });
+  });
+
+  describe('set missing local-host', function () {
+    var args = [
+      'node',
+      'bin/mount-on',
+      'vagrant@192.168.33.10:/mount-point'
+    ];
+
+    it('has local folder', function () {
+      expect(parseArguments(args).local.host).toMatch(/\d+\.\d+\.\d+/);
+    });
+  });
 });
