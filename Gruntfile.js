@@ -1,5 +1,12 @@
 var loadTasks = require('load-grunt-tasks');
 
+var babel = [{
+  expand: true,
+  cwd: 'src/',
+  src: '**',
+  dest: 'lib/'
+}];
+
 module.exports = function gruntConfig(grunt) {
   loadTasks(grunt);
 
@@ -13,10 +20,19 @@ module.exports = function gruntConfig(grunt) {
         'spec/**/*.js'
       ],
       tasks: [
+        'babel:dev',
         'clear', 'test',
         'clear', 'eslint',
         'clear', 'integration'
       ]
+    },
+
+    babel: {
+      dev: {
+        files: babel,
+        options: { sourceMap: true }
+      },
+      dist: { files: babel }
     },
 
     eslint: {
