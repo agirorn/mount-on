@@ -6,7 +6,7 @@
   "bin": "./bin/mount-on.js",
   "scripts": {
     "cover": "istanbul cover jasmine",
-    "integration": "NODE_ENV=integration jasmine",
+    "integration": "jasmine JASMINE_CONFIG_PATH=spec/support/integration.json",
     "prepublish": "grunt babel:dist",
     "test": "jasmine"
   },
