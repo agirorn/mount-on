@@ -30,7 +30,7 @@
   "dependencies": {
     "curry": "^1.2.0",
     "debug": "^2.2.0",
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^1.0.0",
     "merge": "^1.2.0",
     "nopt": "^3.0.6",
     "read": "^1.0.7",
